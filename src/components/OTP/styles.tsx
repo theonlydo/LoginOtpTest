@@ -11,6 +11,9 @@ const styles = StyleSheet.create({
     marginTop: appMetrics.gutter.m,
     justifyContent: 'center',
   },
+  topContainer: {
+    flex: 1,
+  },
   number: {
     fontSize: 20,
     fontWeight: 'bold',
@@ -41,7 +44,6 @@ const styles = StyleSheet.create({
   },
   textResend: {
     fontWeight: 'bold',
-    color: appColors.black,
   },
   textTimer: {},
 });

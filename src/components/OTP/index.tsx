@@ -1,15 +1,27 @@
 import React, {useRef} from 'react';
 import {View, Text, Pressable, TextInput} from 'react-native';
+import {pad} from '@app/utils';
 import styles from './styles';
+import {appColors} from '@app/themes';
 
 interface OTPProps {
   value: string;
+  canResend: boolean;
   onPressResend: () => void;
   onChangeInputNumber: any;
+  minutes: number;
+  seconds: number;
 }
 
 const OTP = (props: OTPProps) => {
-  const {value = '', onPressResend, onChangeInputNumber} = props;
+  const {
+    value = '',
+    canResend,
+    minutes,
+    seconds,
+    onPressResend,
+    onChangeInputNumber,
+  } = props;
 
   const inputReff = useRef();
 
@@ -21,15 +33,14 @@ const OTP = (props: OTPProps) => {
     return num.map((e, index) => {
       const isFocus = value.length === index;
       return (
-        <>
-          <View
-            style={[
-              styles.circle,
-              isFocus ? styles.circleFocus : styles.circleNormal,
-            ]}>
-            <Text style={styles.number}>{e}</Text>
-          </View>
-        </>
+        <View
+          key={index}
+          style={[
+            styles.circle,
+            isFocus ? styles.circleFocus : styles.circleNormal,
+          ]}>
+          <Text style={styles.number}>{e}</Text>
+        </View>
       );
     });
   };
@@ -71,9 +82,18 @@ const OTP = (props: OTPProps) => {
   const _renderTimer = () => {
     return (
       <View style={styles.timerContainer}>
-        <Text style={styles.textTimer}>(00:30)</Text>
-        <Pressable onPress={onPressResend}>
-          <Text style={styles.textResend}>Resend Code</Text>
+        <Text style={styles.textTimer}>{`(${pad(minutes, 2)}:${pad(
+          seconds,
+          2,
+        )})`}</Text>
+        <Pressable onPress={onPressResend} disabled={!canResend}>
+          <Text
+            style={[
+              styles.textResend,
+              {color: canResend ? appColors.black : appColors.gray75},
+            ]}>
+            Resend Code
+          </Text>
         </Pressable>
       </View>
     );
@@ -81,7 +101,7 @@ const OTP = (props: OTPProps) => {
 
   return (
     <View style={styles.container}>
-      <View style={{flex: 1}}>
+      <View style={styles.topContainer}>
         {_renderCircle()}
         {_renderInputNumber()}
       </View>

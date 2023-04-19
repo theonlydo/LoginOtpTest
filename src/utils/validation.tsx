@@ -1,11 +1,11 @@
-const validateEmail = text => {
+const validateEmail = (text: string) => {
   const emailRegex = new RegExp('[a-z0-9]+@[a-z]+.[a-z]{2,3}');
   const isValidEmail = emailRegex.test(text);
 
   return isValidEmail;
 };
 
-const validatePassword = value => {
+const validatePassword = (value: string) => {
   let errors = [];
 
   const isValidLength = /^.{8,}$/;
