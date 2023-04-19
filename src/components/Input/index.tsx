@@ -4,7 +4,7 @@ import styles from './style';
 
 interface InputProps {
   placeholder?: string;
-  onChangeText: () => void;
+  onChangeText: any;
   value: string;
   errorText: string;
   isPassword?: boolean;
