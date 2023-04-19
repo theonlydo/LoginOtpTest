@@ -4,13 +4,11 @@ import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: appColors.white,
-    padding: appMetrics.gutter.m,
+    padding: appMetrics.gutter.s,
+    alignItems: 'center',
   },
-  form: {
-    paddingTop: 50,
-    flex: 1,
+  text: {
+    color: appColors.white,
   },
 });
 
