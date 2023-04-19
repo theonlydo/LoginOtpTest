@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Alert, Text, View} from 'react-native';
+import {Alert, Text, ToastAndroid, View} from 'react-native';
 import styles from './styles';
 import {OTP} from '@app/components';
 import {NAVIGATION_HOME} from '@app/constants';
@@ -60,7 +60,7 @@ const OtpScreen = (props: any) => {
   const onSendOtp = () => {
     setMinutes(0);
     setSeconds(30);
-    Alert.alert('OTP sent to your phone');
+    ToastAndroid.show('OTP Sent', ToastAndroid.LONG);
   };
 
   const _renderTitle = () => {

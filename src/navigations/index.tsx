@@ -29,8 +29,8 @@ const RootNavigation = () => {
           gestureEnabled: true,
           cardOverlayEnabled: true,
         })}>
-        <Stack.Screen name={NAVIGATION_OTP} component={OtpScreen} />
         <Stack.Screen name={NAVIGATION_LOGIN} component={LoginScreen} />
+        <Stack.Screen name={NAVIGATION_OTP} component={OtpScreen} />
         <Stack.Screen name={NAVIGATION_HOME} component={HomeScreen} />
         <Stack.Screen name={NAVIGATION_REGISTER} component={RegisterScreen} />
       </Stack.Navigator>

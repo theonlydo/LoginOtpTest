@@ -2,7 +2,7 @@
  * @format
  */
 
-import {AppRegistry, Text} from 'react-native';
+import {AppRegistry} from 'react-native';
 import {name as appName} from './app.json';
 import React from 'react';
 import {persistor, store} from '@app/data';

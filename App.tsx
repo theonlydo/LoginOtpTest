@@ -7,7 +7,7 @@
 
 import React from 'react';
 import RootNavigation from './src/navigations';
-import {SafeAreaView, StatusBar, useColorScheme} from 'react-native';
+import {SafeAreaView, StatusBar, useColorScheme, LogBox} from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import Loading from '@app/components/Loading';
 import {useSelector} from 'react-redux';
@@ -15,6 +15,8 @@ import {AppState} from '@app/data';
 
 const Application = () => {
   const appState: AppState = useSelector((state: any) => state.app);
+
+  LogBox.ignoreLogs(['Remote debugger']);
 
   const isDarkMode = useColorScheme() === 'dark';
   const backgroundStyle = {

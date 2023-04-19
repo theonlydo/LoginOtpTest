@@ -3,13 +3,27 @@ import {View, Text, Pressable} from 'react-native';
 import styles from './styles';
 import {Input, Button} from '@app/components';
 import {validateEmail, validatePassword} from '@app/utils';
-import {NAVIGATION_LOGIN} from '@app/constants';
+import {NAVIGATION_LOGIN, NAVIGATION_OTP} from '@app/constants';
 import {ScrollView} from 'react-native-gesture-handler';
+import {postLogin} from '@app/data';
+import {useDispatch} from 'react-redux';
 
-const RegisterScreen = props => {
+const RegisterScreen = (props: any) => {
   const {navigation} = props;
 
+  const dispatch = useDispatch();
+
+  const [name, setName] = useState({
+    value: '',
+    isValid: false,
+    errorMessage: '',
+  });
   const [email, setEmail] = useState({
+    value: '',
+    isValid: false,
+    errorMessage: '',
+  });
+  const [phone, setPhone] = useState({
     value: '',
     isValid: false,
     errorMessage: '',
@@ -21,7 +35,19 @@ const RegisterScreen = props => {
   });
   const isValid = password.isValid && email.isValid;
 
-  const onChangePassword = text => {
+  /*
+   * Validation
+   */
+
+  const onChangeName = (text: string) => {
+    setName({
+      value: text,
+      isValid: text.length > 3,
+      errorMessage: text.length > 3 ? '' : 'Too short',
+    });
+  };
+
+  const onChangePassword = (text: string) => {
     const passValidation = validatePassword(text);
     let errorMsg = '';
 
@@ -36,7 +62,17 @@ const RegisterScreen = props => {
     });
   };
 
-  const onChangeEmail = text => {
+  const onChangePhone = (text: string) => {
+    const isPhoneValid = text.length > 7;
+
+    setPhone({
+      value: text,
+      isValid: isPhoneValid,
+      errorMessage: isPhoneValid ? '' : 'Invalid',
+    });
+  };
+
+  const onChangeEmail = (text: string) => {
     const isValidEmail = validateEmail(text);
 
     let errorMsg = '';
@@ -51,12 +87,26 @@ const RegisterScreen = props => {
     });
   };
 
+  /*
+   * APIs Call
+   */
+  const onSubmitData = async () => {
+    const payload = {
+      email: email.value,
+      password: password.value,
+    };
+
+    await dispatch(postLogin(payload));
+
+    navigateToOtp();
+  };
+
   const navigateToRegister = () => {
     navigation.navigate(NAVIGATION_LOGIN);
   };
 
   const navigateToOtp = () => {
-    navigation.navigate('as');
+    navigation.navigate(NAVIGATION_OTP);
   };
 
   return (
@@ -64,21 +114,23 @@ const RegisterScreen = props => {
       <ScrollView style={styles.form}>
         <Input
           placeholder="Name"
-          onChangeText={onChangeEmail}
-          value={email.value}
-          errorText={email.errorMessage}
+          onChangeText={onChangeName}
+          value={name.value}
+          errorText={name.errorMessage}
         />
         <Input
           placeholder="Email"
-          onChangeText={onChangeEmail}
           value={email.value}
+          onChangeText={onChangeEmail}
+          keybordType="email-address"
           errorText={email.errorMessage}
         />
         <Input
           placeholder="Phone Number"
-          onChangeText={onChangeEmail}
-          value={email.value}
-          errorText={email.errorMessage}
+          value={phone.value}
+          onChangeText={onChangePhone}
+          errorText={phone.errorMessage}
+          keybordType="phone-pad"
         />
         <Input
           placeholder="Password"
@@ -89,11 +141,11 @@ const RegisterScreen = props => {
         />
         <Pressable onPress={navigateToRegister}>
           <Text style={styles.textLogin}>
-            Already have an account? Register here
+            Already have an account? Login here
           </Text>
         </Pressable>
       </ScrollView>
-      <Button title="Register" disabled={!isValid} onPress={navigateToOtp} />
+      <Button title="Register" disabled={!isValid} onPress={onSubmitData} />
     </View>
   );
 };
