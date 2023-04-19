@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     paddingTop: appMetrics.gutter.xl,
     flex: 1,
   },
-  textRegister: {
+  textLogin: {
     textAlign: 'center',
   },
 });

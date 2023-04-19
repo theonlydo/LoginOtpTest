@@ -9,31 +9,29 @@ import React from 'react';
 import RootNavigation from './src/navigations';
 import {SafeAreaView, StatusBar, useColorScheme} from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {persistor, store} from '@app/data';
-import {Provider} from 'react-redux';
-import {PersistGate} from 'redux-persist/integration/react';
+import Loading from '@app/components/Loading';
+import {useSelector} from 'react-redux';
+import {AppState} from '@app/data';
 
-function App(): JSX.Element {
+const Application = () => {
+  const appState: AppState = useSelector((state: any) => state.app);
+
   const isDarkMode = useColorScheme() === 'dark';
-
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
     flex: 1,
   };
 
   return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <SafeAreaView style={backgroundStyle}>
-          <StatusBar
-            barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-            backgroundColor={backgroundStyle.backgroundColor}
-          />
-          <RootNavigation />
-        </SafeAreaView>
-      </PersistGate>
-    </Provider>
+    <SafeAreaView style={backgroundStyle}>
+      <StatusBar
+        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+        backgroundColor={backgroundStyle.backgroundColor}
+      />
+      <RootNavigation />
+      {appState.loading && <Loading />}
+    </SafeAreaView>
   );
-}
+};
 
-export default App;
+export default Application;

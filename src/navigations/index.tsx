@@ -2,8 +2,12 @@ import React from 'react';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {NAVIGATION_LOGIN, NAVIGATION_HOME} from '../constants';
-import {HomeScreen, LoginScreen} from '../screens';
+import {
+  NAVIGATION_LOGIN,
+  NAVIGATION_HOME,
+  NAVIGATION_REGISTER,
+} from '../constants';
+import {HomeScreen, LoginScreen, RegisterScreen} from '../screens';
 import {useSelector} from 'react-redux';
 import {UserState} from '@app/data';
 
@@ -26,6 +30,7 @@ const RootNavigation = () => {
         })}>
         <Stack.Screen name={NAVIGATION_LOGIN} component={LoginScreen} />
         <Stack.Screen name={NAVIGATION_HOME} component={HomeScreen} />
+        <Stack.Screen name={NAVIGATION_REGISTER} component={RegisterScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

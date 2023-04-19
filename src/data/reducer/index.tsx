@@ -1,5 +1,6 @@
 import {combineReducers} from 'redux';
 
+import app from './app/reducer';
 import user from './user/reducer';
 
 /**
@@ -8,6 +9,7 @@ import user from './user/reducer';
  * ==================================================================
  */
 export const reducer = combineReducers({
+  app,
   user,
 });
 
@@ -17,6 +19,7 @@ export const reducer = combineReducers({
  * ==================================================================
  */
 export * from './user/action';
+export * from './app/action';
 
 /**
  * ==================================================================
@@ -31,3 +34,4 @@ export * from './user/service';
  * ==================================================================
  */
 export * from './user/type';
+export * from './app/type';
