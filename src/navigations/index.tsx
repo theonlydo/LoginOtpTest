@@ -4,13 +4,20 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NAVIGATION_LOGIN, NAVIGATION_HOME} from '../constants';
 import {HomeScreen, LoginScreen} from '../screens';
+import {useSelector} from 'react-redux';
+import {UserState} from '@app/data';
 
 const Stack = createStackNavigator();
 
 const RootNavigation = () => {
+  const user: UserState = useSelector((state: any) => state.user);
+
   return (
     <NavigationContainer>
       <Stack.Navigator
+        initialRouteName={
+          user.accessToken === '' ? NAVIGATION_LOGIN : NAVIGATION_HOME
+        }
         screenOptions={({}) => ({
           //...TransitionPresets.SlideFromRightIOS,
           headerShown: false,
