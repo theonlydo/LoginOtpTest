@@ -4,9 +4,13 @@ import styles from './styles';
 import {Input, Button} from '@app/components';
 import {validateEmail, validatePassword} from '@app/utils';
 import {NAVIGATION_REGISTER} from '@app/constants';
+import {useDispatch} from 'react-redux';
+import {postLogin} from '@app/data';
 
 const LoginScreen = (props: any) => {
   const {navigation} = props;
+
+  const dispatch = useDispatch();
 
   const [email, setEmail] = useState({
     value: '',
@@ -33,6 +37,14 @@ const LoginScreen = (props: any) => {
       isValid: passValidation.isValid,
       errorMessage: errorMsg,
     });
+  };
+
+  const onSubmitData = async () => {
+    const payload = {};
+
+    await dispatch(postLogin(payload));
+
+    navigateToOtp();
   };
 
   const onChangeEmail = (text: string) => {
@@ -80,7 +92,7 @@ const LoginScreen = (props: any) => {
           </Text>
         </Pressable>
       </View>
-      <Button title="Login" disabled={!isValid} onPress={navigateToOtp} />
+      <Button title="Login" disabled={!isValid} onPress={onSubmitData} />
     </View>
   );
 };
