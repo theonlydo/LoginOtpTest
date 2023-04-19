@@ -77,13 +77,13 @@ const LoginScreen = (props: any) => {
     <View style={styles.container}>
       <View style={styles.form}>
         <Input
-          placeholder="Input Email"
+          placeholder="Email"
           onChangeText={onChangeEmail}
           value={email.value}
           errorText={email.errorMessage}
         />
         <Input
-          placeholder="Input Password"
+          placeholder="Password"
           value={password.value}
           onChangeText={onChangePassword}
           errorText={password.errorMessage}

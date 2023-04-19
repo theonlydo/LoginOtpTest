@@ -39,7 +39,10 @@ const OtpScreen = (props: any) => {
   });
 
   const navigateToDashboard = () => {
-    navigation.replace(NAVIGATION_HOME);
+    navigation.reset({
+      index: 0,
+      routes: [{name: NAVIGATION_HOME}],
+    });
   };
 
   const onChangeOtp = (value: string) => {

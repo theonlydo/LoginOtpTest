@@ -20,10 +20,9 @@ const RootNavigation = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        /*
         initialRouteName={
           user.accessToken === '' ? NAVIGATION_LOGIN : NAVIGATION_HOME
-        }*/
+        }
         screenOptions={({}) => ({
           //...TransitionPresets.SlideFromRightIOS,
           headerShown: false,
