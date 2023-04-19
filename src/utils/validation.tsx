@@ -35,7 +35,7 @@ const validatePassword = value => {
 
   return {
     isValid: errors.length === 0,
-    errors: errors,
+    errors,
   };
 };
 

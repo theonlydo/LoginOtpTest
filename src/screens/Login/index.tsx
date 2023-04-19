@@ -4,32 +4,53 @@ import styles from './styles';
 import {Input, Button} from '@app/components';
 import {validateEmail, validatePassword} from '@app/utils';
 
-const LoginScreen = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [errPassword, setErrPassword] = useState('');
-  const [errEmail, setErrEmail] = useState('');
-  const [isFormValid, setIsFormValid] = useState(false);
+const LoginScreen = (props: any) => {
+  const {navigation} = props;
+
+  const [email, setEmail] = useState({
+    value: '',
+    isValid: false,
+    errorMessage: '',
+  });
+  const [password, setPassword] = useState({
+    value: '',
+    isValid: false,
+    errorMessage: '',
+  });
+  const isValid = password.isValid && email.isValid;
 
   const onChangePassword = (text: string) => {
-    setPassword(text);
     const passValidation = validatePassword(text);
+    let errorMsg = '';
 
     if (!passValidation.isValid) {
-      setErrPassword(passValidation.errors[0]);
-    } else {
-      setErrPassword('');
+      errorMsg = passValidation.errors[0];
     }
+
+    setPassword({
+      value: text,
+      isValid: passValidation.isValid,
+      errorMessage: errorMsg,
+    });
   };
 
-  const onChangeEmail = text => {
-    setEmail(text);
-    const isValid = validateEmail(text);
-    if (!isValid) {
-      setErrEmail('Invalid email');
-    } else {
-      setErrEmail('');
+  const onChangeEmail = (text: string) => {
+    const isValidEmail = validateEmail(text);
+
+    let errorMsg = '';
+    if (!isValidEmail) {
+      errorMsg = 'Invalid email';
     }
+
+    setEmail({
+      value: text,
+      isValid: isValidEmail,
+      errorMessage: errorMsg,
+    });
+  };
+
+  const navigateToOtp = () => {
+    navigation.navigate('as');
   };
 
   return (
@@ -38,18 +59,18 @@ const LoginScreen = () => {
         <Input
           placeholder="Input Email"
           onChangeText={onChangeEmail}
-          value={email}
-          errorText={errEmail}
+          value={email.value}
+          errorText={email.errorMessage}
         />
         <Input
           placeholder="Input Password"
-          value={password}
+          value={password.value}
           onChangeText={onChangePassword}
-          errorText={errPassword}
+          errorText={password.errorMessage}
           isPassword
         />
       </View>
-      <Button title="Login" disabled={!isFormValid} />
+      <Button title="Login" disabled={!isValid} onPress={navigateToOtp} />
     </View>
   );
 };
