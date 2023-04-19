@@ -3,7 +3,7 @@ import {View, Text, Pressable} from 'react-native';
 import styles from './styles';
 import {Input, Button} from '@app/components';
 import {validateEmail, validatePassword} from '@app/utils';
-import {NAVIGATION_REGISTER} from '@app/constants';
+import {NAVIGATION_OTP, NAVIGATION_REGISTER} from '@app/constants';
 import {useDispatch} from 'react-redux';
 import {postLogin} from '@app/data';
 
@@ -40,7 +40,10 @@ const LoginScreen = (props: any) => {
   };
 
   const onSubmitData = async () => {
-    const payload = {};
+    const payload = {
+      email: email.value,
+      password: password.value,
+    };
 
     await dispatch(postLogin(payload));
 
@@ -67,7 +70,7 @@ const LoginScreen = (props: any) => {
   };
 
   const navigateToOtp = () => {
-    navigation.navigate('as');
+    navigation.navigate(NAVIGATION_OTP);
   };
 
   return (
